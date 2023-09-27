@@ -1,3 +1,4 @@
+import flask
 from flask import Flask, flash, request, redirect, url_for, render_template
 import urllib.request
 import os
@@ -21,6 +22,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.stats import wasserstein_distance
 
 app = Flask(__name__)
+print("Flask Version:", flask.__version__)
 
 app.secret_key = "nikhil2004"
      
