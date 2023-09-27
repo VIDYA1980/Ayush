@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        AYUSH
+    </title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/iconleaf2.png')}}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/style+1.css')}}">
+        <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}""></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome library -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+
+    </head>
+
+    <body>
+        <header id="header">
+            <a href="/" class="logo">AYUSH</a>
+            <ul>
+                <li><a href="{{ url_for('home') }}" onclick="highlightButton('home')">Home</a></li>
+                <li><a href="{{ url_for('about') }}" onclick="highlightButton('about')">About</a></li>
+                <li><a href="{{ url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
+                <li><a href="{{ url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
+                <li><a href="{{ url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
+                <li><a href="{{url_for('map_show')}}" class="active" onclick="highlightButton('leafdetect')">MAP</a></li>
+            
+            </ul>
+
+        </header>  
+        <section class="parallax">
+            <img src="{{ url_for('static',filename='Images/hill1.png')}}" id="hill1">
+            <img src="{{ url_for('static',filename='Images/hill2.png')}}" id="hill2">
+            <img src="{{ url_for('static',filename='Images/hill3.png')}}" id="hill3">
+            <img src="{{ url_for('static',filename='Images/hill4.png')}}" id="hill4">
+            <img src="{{ url_for('static',filename='Images/hill5.png')}}" id="hill5">
+            <img src="{{ url_for('static',filename='Images/tree.png')}}" id="tree">
+            <img src="{{ url_for('static',filename='Images/leaf.png')}}" id="leaf">
+            <img src="{{ url_for('static',filename='Images/plant.png')}}" id="plant">
+            <h2 id="text"><span></span><br></h2>
+            
+        </section>
+        <section class="sec">
+            <p>In the realm of modern healthcare, the intersection of artificial intelligence and medicinal plants detection has ushered in a new era of innovation. <br>AI-driven algorithms are revolutionizing the identification and utilization of medicinal plants, making it faster and more efficient than ever before. <br>By analyzing vast datasets of botanical images and employing machine learning techniques, AI systems can accurately recognize specific plant species, discern their medicinal properties, and even predict their growth patterns. <br>This technology holds tremendous promise for both traditional herbal medicine practitioners and pharmaceutical researchers, as it not only expedites the identification of potential therapeutic plants but also ensures their sustainable harvesting and cultivation. <br>As we continue to harness the power of AI in the field of medicinal plants, we move one step closer to unlocking the full potential of nature's healing resources for the benefit of global health and well-being.
+            </p>
+        </section>
+        
+        <!-- Styled Box -->
+        <div class="styled-box">
+        <div class="upload-button-container">
+            <h2>Select a file to upload</h2>
+                        <p>
+                            {% with messages = get_flashed_messages() %}
+                            {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                            <li>{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                        {% endwith %}
+            <form method="post" action="/prediction" enctype="multipart/form-data">
+                <dl>
+                    <p>
+                        <input type="file" name="file" class="form-control upload-button" autocomplete="off" required>
+                    </p>
+                </dl>
+                <p>
+                    <input type="submit" value="Submit" class="btn btn-info upload-button" style="margin-top: 20px;">
+                </p>
+            </form>
+        </div>
+        
+    </div>
+<div class="styled-box3">
+    <div class="image-container">
+        {% if filename %}
+        <p>
+            <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image"
+                class="uploaded-image">
+        </p>
+    </div>
+    <p>
+        <strong>Plant Name:</strong> <span id="plant_name">{{ plant_name }}</span>
+        <br>
+        <strong>Scientific Name:</strong> <span id="scientific_name">{{ scientific_name }}</span>
+        <br>
+        <strong>Advantages:</strong> <span id="advantages">{{ advantages }}</span>
+        <br>;
+        <strong>General Location:</strong> <span id="location">{{ general_location }}</span>
+        <br>
+        <strong>For more information:</strong> <a href="{{ web_link }}" target="_blank">{{ web_link }}</a>
+        <br>
+        {% endif %}
+    </p>
+</div>
+    </body>
+</html>

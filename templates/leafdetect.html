@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        AYUSH
+    </title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/iconleaf2.png')}}">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style_1.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/style_1.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}""></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* Limit the height of the parallax section */
+        .parallax {
+            height: 100vh; /* You can adjust the height as needed */
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+        }
+
+        /* Position the upload button at the center */
+        .upload-button-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            width: 400px;
+            border-radius: 100px;
+            background: linear-gradient(116deg, rgba(194, 244, 238, 0.17) 11.26%, rgba(194, 244, 238, 0.17) 37.48%, rgba(222, 249, 246, 0.13) 63.71%, rgba(255, 255, 255, 0.15) 89.93%);
+            box-shadow: 0px 4px 20px 5px rgba(255, 255, 255, 0.43) inset, 0px 4px 10px 10px rgba(0, 0, 0, 0.25);
+            flex-shrink: 0;
+            position: absolute;
+            overflow: hidden; /* Clip the content to the box */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .upload-button {
+            display: block;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            padding: 5px 30px;
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <a href="/" class="logo">AYUSH</a>
+        <ul>
+                <li><a href="{{url_for('home')}}" onclick="highlightButton('home')">Home</a></li>
+                <li><a href="{{url_for('about')}}" onclick="highlightButton('about')">About</a></li>
+                <li><a href="{{url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
+                <li><a href="{{url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
+                <li><a href="{{url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
+                <li><a href="{{url_for('map_show')}}" class="active" onclick="highlightButton('leafdetect')">MAP</a></li>
+        </ul>
+       
+    </header>
+    <section class="parallax">
+            <img src="{{ url_for('static',filename='Images/hill1.png')}}" id="hill1">
+            <img src="{{ url_for('static',filename='Images/hill2.png')}}" id="hill2">
+            <img src="{{ url_for('static',filename='Images/hill3.png')}}" id="hill3">
+            <img src="{{ url_for('static',filename='Images/hill4.png')}}" id="hill4">
+            <img src="{{ url_for('static',filename='Images/hill5.png')}}" id="hill5">
+            <img src="{{ url_for('static',filename='Images/tree.png')}}" id="tree">
+            <img src="{{ url_for('static',filename='Images/leaf.png')}}" id="leaf">
+            <img src="{{ url_for('static',filename='Images/plant.png')}}" id="plant">
+        
+        <!-- Insert the upload button code here -->
+        <div class="container mt-5">
+            <p>
+                                        {% with messages = get_flashed_messages() %}
+                                        {% if messages %}
+                                    <ul>
+                                        {% for message in messages %}
+                                        <li>{{ message }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                    {% endif %}
+                                    {% endwith %}
+            <form action="/green_check" method="POST" enctype="multipart/form-data">
+                <div class="input-group mb-3">
+                        <input type="file" name="file" class="form-control" id = 'file-input',autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary" style="background-color: #003329;">Upload</button>
+                </div>
+            </form>
+        </div>
+        <h2 id="text"><span> Quality Matters </span><br>Choose Authentic Leaves!</h2>
+    </section>
+    <div class="styled-box3">
+        <div class="image-container">
+            {% if filename %}
+            <p>
+                <strong>{{ authenticity }}</strong>
+            </p>
+            {% endif %}
+        </div>
+    </div>
+    <section class="sec">
+        <p>Welcome to Green Check, your trusted partner in authenticating medicinal leaves!
+             At Ayush, we've harnessed the power of cutting-edge machine learning technology to
+            bring you a revolutionary feature. Our Green Check can swiftly determine whether 
+            a medicinal leaf is genuine or counterfeit, ensuring you receive only the highest quality
+            herbs and remedies. With Ayush, identifying the correct leaf name has never been easier,
+            thanks to our state-of-the-art machine learning algorithms. Say goodbye to uncertainty and embrace the 
+        assurance of authenticity with Green Check your gateway to genuine medicinal leaves.</p>
+    </section>
+        <footer>
+            <div class="copyright">
+                &copy; 2023 Ayush. All Rights Reserved.
+            </div>
+        </footer>
+</body>
+</html>

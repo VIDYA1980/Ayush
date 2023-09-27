@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital@1&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #68CCC4;
+    background: linear-gradient(135deg,#02241E,#236B5D,#68CCC4);
+}
+
+.container {
+    margin: 0 40px;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container h1 {
+    font-size:2rem;
+    color: white;
+    margin-top: 50px;
+}
+
+.container .tab {
+    position: relative;
+    background: #fff;
+    padding: 20px; /* Increase padding to make room for heading */
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.5);
+    border-radius: 5px;
+    overflow: hidden;
+    transition: max-height 1s; /* Add a transition for max-height */
+    max-height: 100px; /* Start with a small max-height */
+}
+
+.container .tab:hover {
+    max-height: 300px; /* Expand max-height on hover */
+}
+
+.container .tab input {
+    appearance: none;
+}
+
+.container .tab label {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Space between the number and heading */
+    cursor: pointer;
+}
+
+.container .tab label::after {
+    content: '+';
+    position: absolute;
+    right: 20px;
+    font-size: 2em;
+    color: rgba(0, 0, 0, 0.1);
+    transition: transform 1s;
+}
+
+.container .tab:hover label::after {
+    color: #333;
+    transform: rotate(135deg);
+}
+
+.container .tab input:checked ~ label::after {
+    transform: rotate(135deg);
+    color: #f5f8ff;
+}
+
+.container .tab label h2 {
+    width: 40px;
+    height: 40px;
+    background: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 1.25em;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+.container .tab input:checked ~ label h2
+{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 8em;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.container .tab:nth-child(3) label h2
+{
+  background: linear-gradient(135deg,#3494e6,#ec6ead);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(4) label h2
+{
+  background: linear-gradient(135deg,#0e9aa7,#e9c46a);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(5) label h2
+{
+  background: linear-gradient(135deg,#26a69a ,#9e7b11);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(6) label h2
+{
+  background: linear-gradient(135deg, #9f4f19,#ff6b6b);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(7) label h2
+{
+  background: linear-gradient(135deg,#6a11cb,#6f1be4);
+}
+.container .tab:nth-child(8) label h2
+{
+  background: linear-gradient(135deg,#ff6b6b,#00eaff);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(9) label h2
+{
+  background: linear-gradient(135deg,#70c1b3,#00eaff);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(10) label h2
+{
+  background: linear-gradient(135deg,#536976 ,#292e49);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+
+.container .tab:nth-child(11) label h2
+{
+  background: linear-gradient(135deg,#9796f0,#fbc7d4);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab:nth-child(12) label h2
+{
+  background: linear-gradient(135deg,#ff4b1f ,#c50707);
+}
+.container .tab label h3 {
+    font-weight: 500;
+    color: #333;
+    z-index: 10;
+    padding: 10px; /* Add padding to separate from the content */
+    flex-grow: 1; /* Allow the heading to expand */
+}
+.container .tab .content {
+    padding: 10px; /* Add padding to the content */
+    display: none; /* Initially hide the content */
+    transition: opacity 1s; /* Add a transition for opacity */
+}
+
+.container .tab:hover .content {
+    display: block; /* Show the content on hover */
+    opacity: 1; /* Fade in the content */
+}
+.container .tab input:checked ~ .content
+{
+  max-height: 100vh;  
+}
+.container .tab .content p
+{
+    position: relative;
+    padding: 10px 0 ;
+    color: #333;
+    z-index: 10;
+}
+/* Add styles for the close button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5em;
+    font-position:center;
+    color: #fff; /* Set the text color to white */
+    background-color: #003329; /* Set the background color to leaf-green */
+    padding: 5px 10px; /* Add some padding for better appearance */
+    border-radius: 50%; /* Make it a circular button */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Style the close button on hover */
+.close-button:hover {
+    background-color: #68CCC4; /* Change the background color on hover */
+    color: #fff; /* Change the text color on hover */
+}

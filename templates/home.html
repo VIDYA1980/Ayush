@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        AYUSH
+    </title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/iconleaf2.png')}}">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/style_1.css')}}">
+        <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}""></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    </head>
+    <style>
+        .parallax {
+            height: 600px; 
+            overflow: hidden;
+            position: relative;
+            background-size: cover;
+        }
+
+    </style>
+    <body>
+        <header id="header">
+            <a href="/" class="logo">AYUSH</a>
+            <ul class="nav">
+                <li><a href="{{url_for('home')}}" onclick="highlightButton('home')">Home</a></li>
+                <li><a href="{{url_for('about')}}" onclick="highlightButton('about')">About</a></li>
+                <li><a href="{{url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
+                <li><a href="{{url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
+                <li><a href="{{url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
+                <li><a href="{{url_for('map_show')}}" class="active" onclick="highlightButton('leafdetect')">MAP</a></li>
+
+            </ul>
+        </header>
+        <section class="parallax">
+            <img src="{{ url_for('static',filename='Images/robot.gif')}}" alt="Robot" id="robot"> <!-- Add this line -->
+            <img src="{{ url_for('static',filename='Images/hill1.png')}}" id="hill1">
+            <img src="{{ url_for('static',filename='Images/hill2.png')}}" id="hill2">
+            <img src="{{ url_for('static',filename='Images/hill3.png')}}" id="hill3">
+            <img src="{{ url_for('static',filename='Images/hill4.png')}}" id="hill4">
+            <img src="{{ url_for('static',filename='Images/hill5.png')}}" id="hill5">
+            <img src="{{ url_for('static',filename='Images/tree.png')}}" id="tree">
+            <img src="{{ url_for('static',filename='Images/leaf.png')}}" id="leaf">
+            <img src="{{ url_for('static',filename='Images/plant.png')}}" id="plant">
+            <h2 id="text"><span>Welcome to AYUSH</span><br>Explore medicinal plants </h2>
+            <a href="{{url_for('try_us')}}" id="btn">Our Services</a>
+        </section>
+        <section class="sec">
+            <p>Welcome to Ayush Your Gateway to Authentic Herbal Healing! In a land as diverse as India, where nature's bounty of medicinal plants has been cherished for centuries, identifying these botanical treasures has long been a challenge. Our mission at Ayush is to revolutionize the field of Ayurvedic Pharmaceutics by providing a cutting-edge solution to this age-old problem. With our state-of-the-art software powered by Image Processing and Machine Learning algorithms, we empower you to accurately identify medicinal plants and raw materials. No more confusion in the market, no more misidentification, and certainly no more doubts about the authenticity of your remedies. From wholesalers to distributors, our platform is here to ensure that every link in the supply chain can access the right information and make informed decisions. Join us on a journey towards purity, transparency, 
+            and trust in the world of herbal medicine. Explore Ayush and experience the future of Ayurveda today!</p>
+        </section>
+        <footer>
+            <div class="copyright">
+                &copy; 2023 Ayush. All Rights Reserved.
+            </div>
+        </footer>
+   
+        <script src="script_1.js"></script>
+        <script>
+            function highlightButton(buttonId) {
+                // Remove the 'active' class from all navigation links
+                const navLinks = document.querySelectorAll('.nav a');
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                });
+
+                // Add the 'active' class to the clicked button
+                const buttonToHighlight = document.querySelector(`.nav a[href="#${buttonId}"]`);
+                if (buttonToHighlight) {
+                    buttonToHighlight.classList.add('active');
+                }
+            }
+        </script>
+    </body>
+</html>

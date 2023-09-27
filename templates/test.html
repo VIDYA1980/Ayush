@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Country Map Example</title>
+    <style>
+        body {
+          background: #68CCC4;
+          background: linear-gradient(135deg,#02241E,#236B5D,#68CCC4);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        #map {
+            width: 500px; /* Set the desired width */
+            height: 500px; /* Set the desired height */
+        }
+    </style>
+        <script type="text/javascript" src="{{ url_for('static',filename='JS/mapdata.js')}}""></script>
+        <script type="text/javascript" src="{{ url_for('static',filename='JS/countrymap.js')}}""></script>
+</head>
+<body>
+    <div id="map"></div>
+</body>
+</html>

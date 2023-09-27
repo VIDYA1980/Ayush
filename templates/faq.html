@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Frequently Asked Questions</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/faq.css')}}">
+        <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}""></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Frequently Asked Questions</h1>
+
+        <!-- Add a single close button for the entire FAQ section -->
+        <a href="/" class="close-button">X</a>
+
+        <div class="tab">
+            <input type="radio" name="acc" id="acc1">
+            <label for="acc1">
+                <h2>01</h2>
+                <h3><b>How does the plant identification feature work?</b></h3>
+            </label>
+            <div class="content">
+                <p> We utilize Convolutional Neural Networks (CNN) technology to identify plants. We reference data from the Indian botanical website.
+
+                </p>
+            </div>
+        </div>
+
+        <div class="tab">
+            <input type="radio" name="acc" id="acc2">
+            <label for="acc2">
+                <h2>02</h2>
+                <h3><b>Is the plant identification service free?</b></h3>
+            </label>
+            <div class="content">
+                <p>Yes, our plant identification service is completely free to use.
+                </p>
+            </div>
+        </div>
+
+        <div class="tab">
+            <input type="radio" name="acc" id="acc3">
+            <label for="acc3">
+                <h2>03</h2>
+                <h3><b>What types of images work best for plant identification? </b></h3>
+            </label>
+            <div class="content">
+                <p> Clear and well-lit photos of plants tend to yield the most accurate identification results.
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc4">
+            <label for="acc4">
+                <h2>04</h2>
+                <h3><b> How accurate is the plant identification? </b></h3>
+            </label>
+            <div class="content">
+                <p>Our model achieves an accuracy rate of 82% in plant identification.
+                     Please note that accuracy can vary based on image quality and plant complexity, 
+                     so expert consultation or dedicated plant identification apps are advisable for 
+                     critical tasks.
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc5">
+            <label for="acc5">
+                <h2>05</h2>
+                <h3><b>Do I need to create an account to use the plant identification service?</b></h3>
+            </label>
+            <div class="content">
+                <p>No, you do not need to create an account. Our service is accessible without the need for registration.
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc6">
+            <label for="acc6">
+                <h2>06</h2>
+                <h3><b>How long does it take to identify a plant?</b></h3>
+            </label>
+            <div class="content">
+                <p>The identification process typically takes a few minutes(~2min) to provide results.</p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc7">
+            <label for="acc7">
+                <h2>07</h2>
+                <h3><b> Are my data and uploaded images safe and secure?
+                </b>    </h3>
+            </label>
+            <div class="content">
+                <p>We prioritize data security. Your information and images are safely stored in our database.
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc8">
+            <label for="acc8">
+                <h2>08</h2>
+                <h3><b>Can I contribute to improving the plant database?
+                </b></h3>
+            </label>
+            <div class="content">
+                <p>Currently, we don't support user contributions to our database.
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc9">
+            <label for="acc9">
+                <h2>09</h2>
+                <h3><b>What is the source of your plant database?</b></h3>
+            </label>
+            <div class="content">
+                <p>Our plant data and images are sourced from the data.mendeley.com website.
+                </p>
+            </div>
+        </div>
+        <div class="tab">
+            <input type="radio" name="acc" id="acc10">
+            <label for="acc10">
+                <h2>10</h2>
+                <h3><b>What sets your plant identification service apart from others?</b></h3>
+            </label>
+            <div class="content">
+                <p>Our service is distinguished by its use of CNN technology and the extensive Indian botanical database as a reference, offering a unique and reliable plant identification experience.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        AYUSH
+    </title>
+    <link rel="shortcut icon" href="{{url_for('static',filename='Images/iconleaf2.png')}}">
+    <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/style_1.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+</head>
+
+<body>
+    <style>
+        .parallax {
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+    <header id="header">
+        <a href="/" class="logo">AYUSH</a>
+        <ul class="nav">
+                <li><a href="{{url_for('home')}}" onclick="highlightButton('home')">Home</a></li>
+                <li><a href="{{url_for('about')}}" onclick="highlightButton('about')">About</a></li>
+                <li><a href="{{url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
+                <li><a href="{{url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
+                <li><a href="{{url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
+                <li><a href="{{url_for('map_show')}}" class="active" onclick="highlightButton('leafdetect')">MAP</a></li>
+
+        </ul>
+    </header>
+    <section class="parallax">
+            <img src="{{ url_for('static',filename='Images/hill1.png')}}" id="hill1">
+            <img src="{{ url_for('static',filename='Images/hill2.png')}}" id="hill2">
+            <img src="{{ url_for('static',filename='Images/hill3.png')}}" id="hill3">
+            <img src="{{ url_for('static',filename='Images/hill4.png')}}" id="hill4">
+            <img src="{{ url_for('static',filename='Images/hill5.png')}}" id="hill5">
+            <img src="{{ url_for('static',filename='Images/tree.png')}}" id="tree">
+            <img src="{{ url_for('static',filename='Images/leaf.png')}}" id="leaf">
+            <img src="{{ url_for('static',filename='Images/plant.png')}}" id="plant">
+        <h2 id="text"><span>Learn More</span><br>About Us</h2>
+        <a href="{{url_for('faq')}}" id="btn">Explore</a>
+    </section>
+    <section id="team">
+        <div class="team-heading">
+            <h3>Our Team</h3>
+        </div>
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                <!-- Repeat this block 6 times -->
+                <div class="swiper-slide">
+                    <div class="team-box">
+                        <div class="t-b-img">
+                            <img src="{{ url_for('static',filename='Images/vidya.png') }}" alt="Vidya's Profile Picture">
+                        </div>
+                        <div class="t-b-text">
+                            <strong>Vidya Bhavana</strong>
+                            <span>Web Developer</span>
+                            <div class="team social">
+                                <a href="https://www.instagram.com/_vidya_.g/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/vidya-gondi-a0aa5b230/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat the above block 5 more times -->
+                <div class="swiper-slide">
+                    <div class="team-box">
+                        <div class="t-b-img">
+                            <img src="{{ url_for('static',filename='Images/yashi.png')}} " alt="Yashi's Profile Picture">
+                        </div>
+                        <div class="t-b-text">
+                            <strong>Yashi</strong>
+                            <span>ML Developer</span>
+                            <div class="team social">
+                                <a href="https://www.instagram.com/_yashi._.singh_/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/yashi-singh158/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat the above block 4 more times -->
+                <div class="swiper-slide">
+                    <div class="team-box">
+                        <div class="t-b-img">
+                            <img src=" {{url_for('static',filename='Images/siddhant.png')}} " alt="Siddhant's Profile Picture">
+                        </div>
+                        <div class="t-b-text">
+                            <strong>Siddhant</strong>
+                            <span>ML Developer</span>
+                            <div class="team social">
+                                <a href="https://www.instagram.com/siddhant_agrawal06/?utm_source=qr&igshid=MzNlNGNkZWQ4Mg%3D%3D" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/siddhantagrawal0603/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat the above block 3 more times -->
+                <div class="swiper-slide">
+                    <div class="team-box">
+                        <div class="t-b-img">
+                            <img src=" {{url_for('static',filename='Images/badri.png')}} " alt="Badrinath's Profile Picture">
+                        </div>
+                        <div class="t-b-text">
+                            <strong>Badrinath</strong>
+                            <span>Web Developer</span>
+                            <div class="team social">
+                                <a href="https://www.instagram.com/badrinathjt7/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/badrinath-j-t-3349a627b/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---repeat 2nd time -->
+                <div class="swiper-slide">
+                    <div class="team-box">
+                        <div class="t-b-img">
+                            <img src=" {{url_for('static',filename='Images/nikhil.png')}} " alt="Nikhil's Profile Picture">
+                        </div>
+                        <div class="t-b-text">
+                            <strong> Sai Nikhil</strong>
+                            <span>Full Stack Developer</span>
+                            <div class="team social">
+                                <a href="https://www.instagram.com/_nikhil.2644_/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/sainikhil26/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--repeat 1 time -->
+                <div class="swiper-slide">
+                    <div class="team-box">
+                        <div class="t-b-img">
+                            <img src=" {{url_for('static',filename='Images/Krishna.png')}} " alt="Krishna's Profile Picture">
+                        </div>
+                        <div class="t-b-text">
+                            <strong>Krishna</strong>
+                            <span>ML Developer</span>
+                            <div class="team social">
+                                <a href="https://www.instagram.com/krishnarochani_13/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                                <a href="https://www.linkedin.com/in/krishna-rochani-6a508621b/" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+            <footer>
+                <div class="copyright">
+                    &copy; 2023 Ayush. All Rights Reserved.
+                </div>
+            </footer>
+   
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+    <script>
+        var swiper = new Swiper(".mySwiper", {
+          effect: "coverflow",
+          grabCursor: true,
+          centeredSlides: true,
+          slidesPerView: "auto",
+          coverflowEffect: {
+            rotate: 50,
+            stretch: -20,
+            depth: 120,
+            modifier: 3,
+            slideShadows: true,
+          },
+        });
+      </script>
+      
+</body>
+</html>
