@@ -1,3 +1,3 @@
-from myapp import create_app
+from ayush_app import create_app
 
 app = create_app()
