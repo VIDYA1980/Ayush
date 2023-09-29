@@ -21,7 +21,12 @@ from scipy.stats import pearsonr
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.stats import wasserstein_distance
 
-app = Flask(__name__)
+
+def create_app():
+    app = Flask(__name__)
+    return app
+
+app = create_app()
 print("Flask Version:", flask.__version__)
 
 app.secret_key = "nikhil2004"
