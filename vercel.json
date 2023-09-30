@@ -1,0 +1,14 @@
+{
+    "builds":[
+        {
+            "src":"ayush_app.py",
+            "use":"@vercel/python"
+        }
+    ],
+    "routes":[
+        {
+            "src":"/(.*)",
+            "dest":"ayush_app.py"
+        }
+    ]
+}
