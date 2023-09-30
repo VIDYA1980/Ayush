@@ -4,6 +4,3 @@
 buildCommand: python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && deactivate
 # Start the Flask app using Gunicorn
 startCommand: venv/bin/gunicorn -b 0.0.0.0:$PORT run:app
-# Specify environment variables if needed
-# environment:
-#   VARIABLE_NAME: "value"
