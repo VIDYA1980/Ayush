@@ -17,9 +17,6 @@ from tensorflow import keras
 #from tensorflow.keras import layers
 #from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from scipy.spatial import distance
-from scipy.stats import pearsonr
-from sklearn.metrics.pairwise import cosine_similarity
-from scipy.stats import wasserstein_distance
 
 
 def create_app():
