@@ -249,6 +249,10 @@ def green_check():
 @app.route('/prediction',methods=['POST'])
 def prediction():
     cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    directory_path = 'static/uploads/'
+
+    if not os.path.exists(UPLOAD_FOLDER):
+        os.makedirs(UPLOAD_FOLDER)
  
     if 'file' not in request.files:
         flash('No file part')
