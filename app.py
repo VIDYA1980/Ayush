@@ -21,6 +21,7 @@ from scipy.spatial import distance
 
 def create_app():
     app = Flask(__name__)
+    app.config['DATABASE'] = os.environ.get("DATABASE_URL")
     return app
 
 app = create_app()
@@ -45,7 +46,8 @@ TEST_FOLDER = 'static/tests/'
 app.secret_key = "secret key"
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['TEST_FOLDER'] = TEST_FOLDER
-app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 10244
+app.config['DATABASE'] = os.environ.get("DATABASE_URL")
   
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 encoder = joblib.load('encoder.joblib')
