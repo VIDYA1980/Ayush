@@ -1,8 +1,8 @@
 import flask
 from flask import Flask, flash, request, redirect, url_for, render_template
-import urllib.request
 import os
 from werkzeug.utils import secure_filename
+import gunicorn
   
 import psycopg2  # pip install psycopg2 
 import psycopg2.extras
