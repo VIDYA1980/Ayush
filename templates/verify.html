@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Verify OTP</title>
+</head>
+
+<body>
+    <h1>Verify OTP</h1>
+    <p>Please enter the OTP sent to your email address:</p>
+    <form method="POST" action="/verify_otp">
+        <label for="otp">OTP:</label>
+        <input type="text" id="otp" name="otp" required>
+        <button type="submit">Verify</button>
+    </form>
+    <p><a href="{{url_for('register')}}">Resend OTP</a></p>
+</body>
+
+</html>

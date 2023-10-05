@@ -22,18 +22,18 @@
     </style>    
     <body>
         <header id="header">
-            <a href="/" class="logo">
+                    <h3>{{username}}</h3>
+            <a href="{{url_for('land')}}" class="logo">
                 <img src="{{url_for('static',filename='Images/iconleaf2.png')}}" alt="AYUSH Logo">
                 AYUSH
             </a>
-            
             <ul>
                 <li><a href="{{url_for('home')}}" onclick="highlightButton('home')">Home</a></li>
                 <li><a href="{{url_for('about')}}" onclick="highlightButton('about')">About</a></li>
                 <li><a href="{{url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
                 <li><a href="{{url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
                 <li><a href="{{url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
-
+                <li><a href="{{url_for('logout')}}" class="active" onclick="highlightButton('leafdetect')">Logout</a></li>
             </ul>
             
 

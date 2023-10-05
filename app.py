@@ -1,13 +1,23 @@
+import mailbox
+import random
 import flask
-from flask import Flask, flash, request, redirect, url_for, render_template
+#import create
+from flask import Flask, flash, jsonify, request, redirect, url_for, render_template, session
 import os
 from werkzeug.utils import secure_filename
 import gunicorn
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import DataRequired, Email
+from flask import Flask
+from flask_mail import Mail, Message
   
 import psycopg2  # pip install psycopg2 
 import psycopg2.extras
 import joblib
 import cv2
+import re
 import numpy as np
 from skimage import feature
 import pandas as pd
@@ -19,12 +29,14 @@ from tensorflow import keras
 from scipy.spatial import distance
 
 
+
 def create_app():
     app = Flask(__name__)
     app.config['DATABASE'] = os.environ.get("DATABASE_URL")
     return app
 
 app = create_app()
+mail = Mail(app)
 print("Flask Version:", flask.__version__)
 
 app.secret_key = "nikhil2004"
@@ -48,6 +60,8 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['TEST_FOLDER'] = TEST_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 10244
 app.config['DATABASE'] = os.environ.get("DATABASE_URL")
+
+
   
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 encoder = joblib.load('encoder.joblib')
@@ -152,10 +166,109 @@ def create_dataset(img_path):
     df = pd.DataFrame(data, columns=names)
     return df 
 
-@app.route('/')
+
+@app.route('/landing')
 def land():
     return render_template('index.html')
 
+
+@app.route('/')
+def success():
+    # Check if user is loggedin
+    if 'loggedin' in session:
+    
+        # User is loggedin show them the home page
+        return render_template('index.html', username=session['username'])
+    # User is not loggedin redirect to login page
+    return redirect(url_for('login'))
+
+
+@app.route('/login/', methods=['GET', 'POST'])
+def login():
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+   
+    # Check if "username" and "password" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form:
+        username = request.form['username']
+        password = request.form['password']
+        print(password)
+ 
+        # Check if account exists using MySQL
+        cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+        # Fetch one record and return result
+        account = cursor.fetchone()
+ 
+        if account:
+            password_rs = account['password']
+            print(password_rs)
+            # If account exists in users table in out database
+            if check_password_hash(password_rs, password):
+                # Create session data, we can access this data in other routes
+                session['loggedin'] = True
+                session['id'] = account['id']
+                session['username'] = account['username']
+                # Redirect to home page
+                return render_template('index.html')
+            else:
+                # Account doesnt exist or username/password incorrect
+                flash('Account doesn\'t exist')
+        else:
+            # Account doesnt exist or username/password incorrect
+            flash('Incorrect username/password')
+ 
+    return render_template('login.html')
+
+
+  
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+ 
+    # Check if "username", "password", "email", and "fullname" POST requests exist (user submitted form)
+    if request.method == 'POST' and 'username' in request.form and 'password' in request.form and 'email' in request.form and 'fullname' in request.form:
+        # Create variables for easy access
+        fullname = request.form['fullname']
+        username = request.form['username']
+        password = request.form['password']
+        email = request.form['email']
+    
+        _hashed_password = generate_password_hash(password)
+ 
+        # Check if account exists using MySQL
+        cursor.execute('SELECT * FROM users WHERE username = %s', (username,))
+        account = cursor.fetchone()
+ 
+        # If account exists, show error and validation checks
+        if account:
+            flash('Account already exists!')
+        elif not re.match(r'[^@]+@[^@]+\.[^@]+', email):
+            flash('Invalid email address!')
+        elif not re.match(r'[A-Za-z0-9]+', username):
+            flash('Username must contain only characters and numbers!')
+        elif not username or not password or not email:
+            flash('Please fill out the form!')
+        else:
+            cursor.execute('INSERT INTO users (fullname, username, password, email) VALUES (%s, %s, %s, %s)', (fullname, username, _hashed_password, email))
+            cursor.close()
+            flash('Successfully registered')
+
+    elif request.method == 'POST':
+        # Form is empty (no POST data)
+        flash('Please fill out the form!')
+
+    conn.commit()
+
+    # Show registration form with message (if any)
+    return render_template('register.html')
+
+@app.route('/logout')
+def logout():
+    # Remove session data, this will log the user out
+   session.pop('loggedin', None)
+   session.pop('id', None)
+   session.pop('username', None)
+   # Redirect to login page
+   return redirect(url_for('login'))
 
 @app.route('/home')
 def home():
@@ -312,15 +425,160 @@ def prediction():
         return redirect(request.url)
     
 
-@app.route('/prediction')
-def show_prediction():
-    prediction = request.args.get('prediction')
-    return render_template('try_us.html', prediction=prediction)
+#@app.route('/prediction')
+#def show_prediction():
+#    prediction = request.args.get('prediction')
+#    return render_template('try_us.html', prediction=prediction)
+
+import base64
+import os
+
+@app.route('/capture', methods=['POST'])
+def capture():
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+            data = request.json
+            image_data_url = data.get('imageDataURL')
+
+            # Decode the Base64 image data
+            image_data = base64.b64decode(image_data_url.split(',')[1])
+
+            # Define the file path where you want to save the image
+            file_name = 'captured_image.jpg'  # You can specify the desired file format
+
+            # Save the image data as a file in the static folder
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+            #file.save(file_path)
+            with open(file_path, 'wb') as f:
+                f.write(image_data)
+        # ------------------------------------------------ Prediction ------------------------------------------------------------------------
+            numerical_data = create_dataset(file_path)
+            pred = predict(numerical_data)
+            prediction = class_name(pred)
+
+        # --------------------------------------------- Querying History-------------------------------------------------------------------------------
+            cursor.execute('''INSERT INTO history(plant_class) VALUES (%s)''', (prediction,))
+            conn.commit()
+
+        # ---------------------------------------------- Details of the plant/herb --------------------------------------------------------------------
+
+            cursor.execute('''SELECT scientific_name FROM details WHERE plant_name LIKE %s''', ('%' + prediction + '%',))
+            scientific = cursor.fetchone()
+            if scientific:
+                scientific_name = scientific[0]
+            else:
+                scientific_name = "Scientific Name not found"
+            cursor.execute('''SELECT advantage FROM details WHERE plant_name LIKE %s''', ('%' + prediction + '%',))
+            advantage_result = cursor.fetchone()
+            if advantage_result:
+                advantage = advantage_result[0]
+            else:
+                advantage = "Advantages not found"
+            cursor.execute('''SELECT general_location FROM details WHERE plant_name LIKE %s''', ('%' + prediction + '%',))
+            location = cursor.fetchone()
+            if location:
+                general_location = location[0]
+            else:
+                general_location = "Locations not found"
+            cursor.execute('''SELECT web_link FROM details WHERE plant_name LIKE %s''', ('%' + prediction + '%',))
+            web = cursor.fetchone()
+            if web:
+                web_link = web[0]
+            else:
+                web_link = "Link not available"
+
+            conn.commit()
+            flash('Image successfully uploaded and displayed')
+            print(prediction)
+            print(file_path)
+            print(scientific_name)
+            print(advantage)
+            print(general_location)
+            print(web_link)
+            image_info = {
+        "plant_name": prediction,
+        "scientific_name": scientific_name,
+        "advantages": advantage,
+        "general_location": general_location,
+        "web_link": web_link
+        }
+            return jsonify(image_info)    
+
+    except Exception as e:
+            return jsonify({'error': str(e)})
 
 @app.route('/green-check')
 def show_green():
     green_check = request.args.get('authencity')
     return render_template('leafdetect.html', authenticity=green_check)
+
+@app.route('/capture_green', methods=['POST'])
+def capture_green():
+    cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
+    try:
+            data = request.json
+            image_data_url = data.get('imageDataURL')
+
+            # Decode the Base64 image data
+            image_data = base64.b64decode(image_data_url.split(',')[1])
+
+            # Define the file path where you want to save the image
+            file_name = 'captured_image.jpg'  # You can specify the desired file format
+
+            # Save the image data as a file in the static folder
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], file_name)
+            #file.save(file_path)
+            with open(file_path, 'wb') as f:
+                f.write(image_data)
+        # ------------------------------------------------ Prediction ------------------------------------------------------------------------
+            numerical_data = create_dataset(file_path)
+            pred = predict(numerical_data)
+            prediction = class_name(pred)
+            cursor.execute('''SELECT area, perimeter, physiological_length, physiological_width, aspect_ratio,
+                  rectangularity, circularity, mean_r, mean_g, mean_b, stddev_r, stddev_g, stddev_b,
+                  contrast, correlation, inverse_difference_moments, entropy 
+                  FROM plant_data WHERE plant_number LIKE %s''', (pred,))
+            matching_rows = cursor.fetchall()
+
+            if not matching_rows:
+                print("No matching data found in the database")
+            else:
+                similarities = []  # List to store similarities for all matching rows
+
+            # Convert the matching rows to NumPy arrays for efficient calculation
+            reference_values = np.array([list(map(float, row)) for row in matching_rows])
+
+            # Assuming 'numerical_data' is a Pandas DataFrame with your predicted data
+            predicted_values = np.array(numerical_data.values).flatten()
+
+            for ref_row in reference_values:
+            # Calculate the Euclidean distance between the feature vectors
+                euclidean_distance = distance.euclidean(ref_row, predicted_values)
+
+            # Calculate similarity (assuming smaller Euclidean distance implies higher similarity)
+                max_distance = np.sqrt(sum(x ** 2 for x in ref_row))  # Maximum possible Euclidean distance
+                similarity = 1 - (euclidean_distance / max_distance)
+
+                similarities.append(similarity)
+
+            # Calculate and print the median similarity
+            authencity_val = np.median(similarities) * 100
+
+            if(authencity_val > 60):
+                authenticity = True
+                auth_statement = "Yes, this is an original leaf"
+            else:
+                authenticity = False
+                auth_statement = "No, this is not an original leaf"
+            cursor.execute('''INSERT INTO authentic(plant_class, auth_value, authenticity) VALUES (%s, %s, %s)''', (prediction, authencity_val, authenticity))
+            conn.commit()
+
+            info = {"auth":auth_statement}
+            
+            return jsonify(info)    
+
+    except Exception as e:
+            return jsonify({'error': str(e)})
 
 @app.route('/map')
 def map_show():

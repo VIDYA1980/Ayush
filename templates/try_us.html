@@ -1,66 +1,103 @@
 <!DOCTYPE html>
 <html>
-    <title>
-        AYUSH
-    </title>
-    <link rel="shortcut icon" href="{{url_for('static',filename='Images/iconleaf2.png')}}">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width,initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/style+1.css')}}">
-        <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}""></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome library -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<title>
+    AYUSH
+</title>
+<link rel="shortcut icon" href="{{url_for('static',filename='Images/iconleaf2.png')}}">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='CSS/style+1.css')}}">
+    <script type="text/javascript" src="{{ url_for('static',filename='JS/script_1.js')}}""></script>
+        <link rel=" stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> <!-- Font Awesome library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* CSS for the modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
 
-    </head>
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+        }
 
-    <body>
-        <header id="header">
-            <a href="/" class="logo">AYUSH</a>
-            <ul>
-                <li><a href="{{ url_for('home') }}" onclick="highlightButton('home')">Home</a></li>
-                <li><a href="{{ url_for('about') }}" onclick="highlightButton('about')">About</a></li>
-                <li><a href="{{ url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
-                <li><a href="{{ url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
-                <li><a href="{{ url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
-                <li><a href="{{url_for('map_show')}}" class="active" onclick="highlightButton('leafdetect')">MAP</a></li>
-            
-            </ul>
+        /* Additional CSS for styling the video element */
+        video {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
 
-        </header>  
-        <section class="parallax">
-            <img src="{{ url_for('static',filename='Images/hill1.png')}}" id="hill1">
-            <img src="{{ url_for('static',filename='Images/hill2.png')}}" id="hill2">
-            <img src="{{ url_for('static',filename='Images/hill3.png')}}" id="hill3">
-            <img src="{{ url_for('static',filename='Images/hill4.png')}}" id="hill4">
-            <img src="{{ url_for('static',filename='Images/hill5.png')}}" id="hill5">
-            <img src="{{ url_for('static',filename='Images/tree.png')}}" id="tree">
-            <img src="{{ url_for('static',filename='Images/leaf.png')}}" id="leaf">
-            <img src="{{ url_for('static',filename='Images/plant.png')}}" id="plant">
-            <h2 id="text"><span></span><br></h2>
-            
-        </section>
-        <section class="sec">
-            <p>In the realm of modern healthcare, the intersection of artificial intelligence and medicinal plants detection has ushered in a new era of innovation. <br>AI-driven algorithms are revolutionizing the identification and utilization of medicinal plants, making it faster and more efficient than ever before. <br>By analyzing vast datasets of botanical images and employing machine learning techniques, AI systems can accurately recognize specific plant species, discern their medicinal properties, and even predict their growth patterns. <br>This technology holds tremendous promise for both traditional herbal medicine practitioners and pharmaceutical researchers, as it not only expedites the identification of potential therapeutic plants but also ensures their sustainable harvesting and cultivation. <br>As we continue to harness the power of AI in the field of medicinal plants, we move one step closer to unlocking the full potential of nature's healing resources for the benefit of global health and well-being.
-            </p>
-        </section>
-        
-        <!-- Styled Box -->
-        <div class="styled-box">
+<body>
+    <header id="header">
+        <a href="{{url_for('land')}}" class="logo">AYUSH</a>
+        <ul>
+            <li><a href="{{ url_for('home') }}" onclick="highlightButton('home')">Home</a></li>
+            <li><a href="{{ url_for('about') }}" onclick="highlightButton('about')">About</a></li>
+            <li><a href="{{ url_for('try_us')}}" onclick="highlightButton('tryus')">Try Us!</a></li>
+            <li><a href="{{ url_for('leaf_detective')}}" onclick="highlightButton('leafdetect')">Green Check</a></li>
+            <li><a href="{{ url_for('faq')}}" class="active" onclick="highlightButton('leafdetect')">FAQS</a></li>
+            <li><a href="{{url_for('map_show')}}" class="active" onclick="highlightButton('leafdetect')">MAP</a></li>
+        </ul>
+    </header>
+    <section class="parallax">
+        <!-- Your parallax images and text here -->
+        <img src="{{ url_for('static',filename='Images/hill1.png')}}" id="hill1">
+        <img src="{{ url_for('static',filename='Images/hill2.png')}}" id="hill2">
+        <img src="{{ url_for('static',filename='Images/hill3.png')}}" id="hill3">
+        <img src="{{ url_for('static',filename='Images/hill4.png')}}" id="hill4">
+        <img src="{{ url_for('static',filename='Images/hill5.png')}}" id="hill5">
+        <img src="{{ url_for('static',filename='Images/tree.png')}}" id="tree">
+        <img src="{{ url_for('static',filename='Images/leaf.png')}}" id="leaf">
+        <img src="{{ url_for('static',filename='Images/plant.png')}}" id="plant">
+        <h2 id="text"><span></span><br></h2>
+    </section>
+    <section class="sec">
+        <!-- Your content here -->
+        <p>In the realm of modern healthcare, the intersection of artificial intelligence and medicinal plants detection
+            has ushered in a new era of innovation. <br>AI-driven algorithms are revolutionizing the identification and
+            utilization of medicinal plants, making it faster and more efficient than ever before. <br>By analyzing vast
+            datasets of botanical images and employing machine learning techniques, AI systems can accurately recognize
+            specific plant species, discern their medicinal properties, and even predict their growth patterns. <br>This
+            technology holds tremendous promise for both traditional herbal medicine practitioners and pharmaceutical
+            researchers, as it not only expedites the identification of potential therapeutic plants but also ensures
+            their sustainable harvesting and cultivation. <br>As we continue to harness the power of AI in the field of
+            medicinal plants, we move one step closer to unlocking the full potential of nature's healing resources for
+            the benefit of global health and well-being.
+        </p>
+    </section>
+
+    <!-- Styled Box -->
+    <div class="styled-box">
         <div class="upload-button-container">
             <h2>Select a file to upload</h2>
-                        <p>
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                        <ul>
-                            {% for message in messages %}
-                            <li>{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                        {% endwith %}
+            <p>
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            </p>
             <form method="post" action="/prediction" enctype="multipart/form-data">
                 <dl>
                     <p>
@@ -68,12 +105,21 @@
                     </p>
                 </dl>
                 <p>
-                    <input type="submit" value="Submit" class="btn btn-info upload-button" style="margin-top: 20px;">
+                    <input type="submit" value="Upload" class="btn btn-info upload-button" style="margin-top: 20px;">
                 </p>
             </form>
+            <button id="startWebcamButton">Start Webcam</button>
+            <!-- Modal structure -->
+                <div id="webcamModal" class="modal">
+                    <div class="modal-content">
+                        <video id="webcam" autoplay></video>
+                        <button id="captureButton">Capture</button>
+                        <button id="closeWebcamButton">Close</button>
+                    </div>
+                </div>
         </div>
-        
     </div>
+
 <div class="styled-box3">
     <div class="image-container">
         {% if filename %}
@@ -81,7 +127,7 @@
             <img src="{{ url_for('static', filename='uploads/' + filename) }}" alt="Uploaded Image"
                 class="uploaded-image">
         </p>
-    </div>
+    </div>6
     <p>
         <strong>Plant Name:</strong> <span id="plant_name">{{ plant_name }}</span>
         <br>
@@ -94,7 +140,103 @@
         <strong>For more information:</strong> <a href="{{ web_link }}" target="_blank">{{ web_link }}</a>
         <br>
         {% endif %}
+        <p id="plant_name1"></p>
+        <p id="scientific_name1"></p>
+        <p id="advantages1"></p>
+        <p id="general_location1"></p>
+        <p id="web_link1"></p>
     </p>
 </div>
-    </body>
-</html>
+        <p>
+            <!-- Display image information here -->
+        </p>
+    </div>
+    <script>
+        const startWebcamButton = document.getElementById('startWebcamButton');
+        const webcamModal = document.getElementById('webcamModal');
+        const webcam = document.getElementById('webcam');
+        const captureButton = document.getElementById('captureButton');
+        const closeWebcamButton = document.getElementById('closeWebcamButton');
+        let mediaStream = null; // Store the media stream
+
+        // Function to start the webcam and display the modal
+        async function startWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                mediaStream = stream; // Store the media stream
+                webcamModal.style.display = 'block';
+                webcam.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        // Function to close the modal
+        function closeWebcamModal() {
+            if (mediaStream) {
+                // Stop the webcam stream
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+            webcamModal.style.display = 'none';
+        }
+
+        // Function to capture an image and send it to the backend
+        function captureImage() {
+            if (mediaStream) {
+                // Stop the webcam stream
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+
+            // Capture an image from the webcam and convert it to a data URL
+            const canvas = document.createElement('canvas');
+            canvas.width = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+            const imageDataURL = canvas.toDataURL('image/jpeg'); // You can adjust the format as needed
+
+            // Send the captured image data to the backend (e.g., using AJAX)
+            fetch('/capture', {
+                method: 'POST',
+                body: JSON.stringify({ imageDataURL }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the backend if needed
+                    console.log('Image captured and sent to the backend:', data);
+                    const plantNameElement = document.getElementById('plant_name1');
+                    const scientificNameElement = document.getElementById('scientific_name1');
+                    const advantagesElement = document.getElementById('advantages1');
+                    const locationElement = document.getElementById('location1');
+                    const webLinkElement = document.getElementById('web_link1');
+
+                    plantNameElement.innerHTML = '<strong>Plant Name:</strong> <span>' + data.plant_name + '</span>';
+                    scientificNameElement.innerHTML = '<strong>Scientific Name:</strong> <span>' + data.scientific_name + '</span>';
+                    advantagesElement.innerHTML = '<strong>Advantages:</strong> <span>' + data.advantages + '</span>';
+                    locationElement.innerHTML = '<strong>General Locations:</strong> <span>' + data.general_location + '</span>';
+                    webLinkElement.innerHTML = '<strong>Plant Name:</strong> <span><a href="' + data.web_link + '">' + data.web_link + '</a></span>';
+
+                })
+                .catch(error => {
+                    console.error('Error sending captured image to the backend:', error);
+                });
+
+            webcamModal.style.display = 'none'; // Close the modal
+        }
+
+        // Attach the startWebcam function to the button click event
+        startWebcamButton.addEventListener('click', startWebcam);
+
+        // Attach the closeWebcamModal function to the close button click event
+        closeWebcamButton.addEventListener('click', closeWebcamModal);
+
+        // Attach the captureImage function to the capture button click event
+        captureButton.addEventListener('click', captureImage);
+
+    
+    </script>
+
+</body>

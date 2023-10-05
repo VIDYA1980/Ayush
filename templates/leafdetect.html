@@ -50,11 +50,37 @@
             margin-bottom: 20px;
             padding: 5px 30px;
         }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Additional CSS for styling the video element */
+        video {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <header id="header">
-        <a href="/" class="logo">AYUSH</a>
+        <a href="{{url_for('land')}}" class="logo">AYUSH</a>
         <ul>
                 <li><a href="{{url_for('home')}}" onclick="highlightButton('home')">Home</a></li>
                 <li><a href="{{url_for('about')}}" onclick="highlightButton('about')">About</a></li>
@@ -98,11 +124,9 @@
     </section>
     <div class="styled-box3">
         <div class="image-container">
-            {% if filename %}
-            <p>
+            <p id="auth">
                 <strong>{{ authenticity }}</strong>
             </p>
-            {% endif %}
         </div>
     </div>
     <section class="sec">
@@ -113,6 +137,15 @@
             herbs and remedies. With Ayush, identifying the correct leaf name has never been easier,
             thanks to our state-of-the-art machine learning algorithms. Say goodbye to uncertainty and embrace the 
         assurance of authenticity with Green Check your gateway to genuine medicinal leaves.</p>
+
+                                                            <button id="startWebcamButton">Start Webcam</button>
+                                                            <div id="webcamModal" class="modal">
+                                                                <div class="modal-content">
+                                                                    <video id="webcam" autoplay></video>
+                                                                    <button id="captureButton">Capture</button>
+                                                                    <button id="closeWebcamButton">Close</button>
+                                                                </div>
+                                                            </div>
     </section>
         <footer>
             <div class="copyright">
@@ -120,4 +153,82 @@
             </div>
         </footer>
 </body>
+    <script>
+        const startWebcamButton = document.getElementById('startWebcamButton');
+        const webcamModal = document.getElementById('webcamModal');
+        const webcam = document.getElementById('webcam');
+        const captureButton = document.getElementById('captureButton');
+        const closeWebcamButton = document.getElementById('closeWebcamButton');
+        let mediaStream = null; // Store the media stream
+
+        // Function to start the webcam and display the modal
+        async function startWebcam() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+                mediaStream = stream; // Store the media stream
+                webcamModal.style.display = 'block';
+                webcam.srcObject = stream;
+            } catch (error) {
+                console.error('Error accessing webcam:', error);
+            }
+        }
+
+        // Function to close the modal
+        function closeWebcamModal() {
+            if (mediaStream) {
+                // Stop the webcam stream
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+            webcamModal.style.display = 'none';
+        }
+
+        // Function to capture an image and send it to the backend
+        function captureImage() {
+            if (mediaStream) {
+                // Stop the webcam stream
+                mediaStream.getTracks().forEach(track => track.stop());
+            }
+
+            // Capture an image from the webcam and convert it to a data URL
+            const canvas = document.createElement('canvas');
+            canvas.width = webcam.videoWidth;
+            canvas.height = webcam.videoHeight;
+            const context = canvas.getContext('2d');
+            context.drawImage(webcam, 0, 0, canvas.width, canvas.height);
+            const imageDataURL = canvas.toDataURL('image/jpeg'); // You can adjust the format as needed
+
+            // Send the captured image data to the backend (e.g., using AJAX)
+            fetch('/capture_green', {
+                method: 'POST',
+                body: JSON.stringify({ imageDataURL }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // Handle the response from the backend if needed
+                    console.log('Image captured and sent to the backend:', data);
+                    const authen = document.getElementById('auth');
+                    authen.textContent = data.auth;
+                })
+                .catch(error => {
+                    console.error('Error sending captured image to the backend:', error);
+                });
+
+            webcamModal.style.display = 'none'; // Close the modal
+        }
+
+        // Attach the startWebcam function to the button click event
+        startWebcamButton.addEventListener('click', startWebcam);
+
+        // Attach the closeWebcamModal function to the close button click event
+        closeWebcamButton.addEventListener('click', closeWebcamModal);
+
+        // Attach the captureImage function to the capture button click event
+        captureButton.addEventListener('click', captureImage);
+
+
+    </script>
+
 </html>
